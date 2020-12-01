@@ -32,7 +32,7 @@ public class MainController implements Initializable {
 	// controllers
 	
 	private PersonalController personalController = new PersonalController();
-	private ContactoController contactoControlelr = new ContactoController();
+	private ContactoController contactoController = new ContactoController();
 	
 	// model
 	
@@ -72,7 +72,7 @@ public class MainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		personalTab.setContent(personalController.getView());
-		contactoTab.setContent(contactoControlelr.getView());
+		contactoTab.setContent(contactoController.getView());
 		
 		cv.addListener((o, ov, nv) -> onCVChanged(o, ov, nv));
 		
@@ -85,6 +85,7 @@ public class MainController implements Initializable {
     	if (ov != null) {
     		
     		personalController.personalProperty().unbind(); // desbindeo personalProperty del CV anterior
+    		contactoController.contactoProperty().unbind();
     		// desbindear resto de controllers
     		
     	}
@@ -93,7 +94,7 @@ public class MainController implements Initializable {
     		
     		personalController.personalProperty().bind(nv.personalProperty()); // bindeo personalProperty del nuevo CV
     		// bindear resto de controllers
-    		
+    		contactoController.contactoProperty().bind(nv.contactoProperty());
     	}
     	
 	}

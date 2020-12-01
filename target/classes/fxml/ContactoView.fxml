@@ -24,14 +24,14 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="tableTelefono" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
+                  <TableView fx:id="tableTelefono" editable="true" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
                     <columns>
                       <TableColumn fx:id="columnNumero" prefWidth="120.0" text="Número" />
                       <TableColumn fx:id="columnTipo" prefWidth="104.0" text="Tipo" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnAgregarTelefono" mnemonicParsing="false" text="Añadir" GridPane.columnIndex="1" />
-                  <Button fx:id="btnEliminarTelefono" mnemonicParsing="false" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="btnAgregarTelefono" mnemonicParsing="false" onAction="#agregarTelefono" text="Añadir" GridPane.columnIndex="1" />
+                  <Button fx:id="btnEliminarTelefono" mnemonicParsing="false" onAction="#eliminarTelefono" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -51,7 +51,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="tableEmail" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
+                  <TableView fx:id="tableEmail" editable="true" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
                      <columns>
                         <TableColumn fx:id="collnEmail" prefWidth="262.0" text="E-mail" />
                      </columns>
@@ -77,7 +77,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="tableUrl" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
+                  <TableView fx:id="tableUrl" editable="true" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
                      <columns>
                         <TableColumn fx:id="columnUrl" prefWidth="261.0" text="URL" />
                      </columns>

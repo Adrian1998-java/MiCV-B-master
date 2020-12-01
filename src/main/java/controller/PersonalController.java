@@ -83,7 +83,7 @@ public class PersonalController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		personal.addListener((o, ov, nv) -> onPersonalChanged(o, ov, nv));
-		// nacionalidadesList = new ListView<Nacionalidad>();
+
 		listaElecciones = new ArrayList<>();
 		quitarNacionalidadButton.setDisable(true);
 
@@ -100,6 +100,21 @@ public class PersonalController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		try {
+			
+			BufferedReader csvReader = new BufferedReader(new FileReader("src/main/resources/csv/paises.csv"));
+			String row = "";
+
+			while ((row = csvReader.readLine()) != null) {
+				paisCombo.getItems().add(row);
+			}
+			csvReader.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		paisCombo.getSelectionModel().select(0);
 
 	}
 
@@ -113,6 +128,11 @@ public class PersonalController implements Initializable {
 			nombreText.textProperty().unbindBidirectional(ov.nombreProperty());
 			apellidosText.textProperty().unbindBidirectional(ov.apellidosProperty());
 			fechaNacimientoDate.valueProperty().unbindBidirectional(ov.fechaNacimientoProperty());
+			direccionText.textProperty().unbindBidirectional(ov.direccionProperty());
+			localidadText.textProperty().unbindBidirectional(ov.localidadProperty());
+			codigoPostalText.textProperty().unbindBidirectional(ov.codigoPostalProperty());
+			paisCombo.valueProperty().unbindBidirectional(ov.paisProperty());
+			nacionalidadesList.itemsProperty().unbindBidirectional(ov.nacionalidadesProperty());
 			// TODO desbindear el resto de propiedades
 
 		}
@@ -123,6 +143,11 @@ public class PersonalController implements Initializable {
 			nombreText.textProperty().bindBidirectional(nv.nombreProperty());
 			apellidosText.textProperty().bindBidirectional(nv.apellidosProperty());
 			fechaNacimientoDate.valueProperty().bindBidirectional(nv.fechaNacimientoProperty());
+			direccionText.textProperty().bindBidirectional(nv.direccionProperty());
+			localidadText.textProperty().bindBidirectional(nv.localidadProperty());
+			codigoPostalText.textProperty().bindBidirectional(nv.codigoPostalProperty());
+			paisCombo.valueProperty().bindBidirectional(nv.paisProperty());
+			nacionalidadesList.itemsProperty().bindBidirectional(nv.nacionalidadesProperty());
 			// TODO bindear el resto de propiedades
 
 		}
