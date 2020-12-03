@@ -98,7 +98,7 @@ public class MainController implements Initializable {
     		// bindear resto de controllers
     		contactoController.contactoProperty().bind(nv.contactoProperty());
     		formacionController.formacionProperty().bind(nv.formacionProperty());
-    		experienciaController.experienciaProperty().bind(nv.experienciaProperty());
+    		experienciaController.experienciaProperty().bind(nv.experienciasProperty());
     	}
     	
 	}
