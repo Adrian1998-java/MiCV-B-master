@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 
 public class Contacto {
 	private ListProperty<Telefono> numeros = new SimpleListProperty<Telefono>(FXCollections.observableArrayList());
-	private ListProperty<String> emails = new SimpleListProperty<String>(FXCollections.observableArrayList());
-	private ListProperty<String> webs = new SimpleListProperty<String>(FXCollections.observableArrayList());
+	private ListProperty<Email> emails = new SimpleListProperty<Email>(FXCollections.observableArrayList());
+	private ListProperty<Url> webs = new SimpleListProperty<Url>(FXCollections.observableArrayList());
 	
 	public ListProperty<Telefono> numerosProperty() {
 		return numeros;
@@ -15,16 +15,16 @@ public class Contacto {
 	public void setNumeros(ListProperty<Telefono> numeros) {
 		this.numeros = numeros;
 	}
-	public ListProperty<String> emailsProperty() {
+	public ListProperty<Email> emailsProperty() {
 		return emails;
 	}
-	public void setEmails(ListProperty<String> emails) {
+	public void setEmails(ListProperty<Email> emails) {
 		this.emails = emails;
 	}
-	public ListProperty<String> websProperty() {
+	public ListProperty<Url> websProperty() {
 		return webs;
 	}
-	public void setWebs(ListProperty<String> webs) {
+	public void setWebs(ListProperty<Url> webs) {
 		this.webs = webs;
 	}
 	

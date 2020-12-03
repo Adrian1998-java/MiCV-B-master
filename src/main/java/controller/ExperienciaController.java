@@ -27,30 +27,30 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import model.Formacion;
-import model.Titulo;
+import model.Conocimiento;
+import model.Experiencia;
 
-public class FormacionController implements Initializable {
+public class ExperienciaController implements Initializable {
 
-	private ObjectProperty<Formacion> formacion = new SimpleObjectProperty<>();
+	private ObjectProperty<Experiencia> experiencia = new SimpleObjectProperty<>();
 
 	@FXML
 	private GridPane view;
 
 	@FXML
-	private TableView<Titulo> tableFormacion;
+	private TableView<Conocimiento> tableExperiencia;
 
 	@FXML
-	private TableColumn<Titulo, Date> columnDesde;
+	private TableColumn<Conocimiento, Date> columnDesde;
 
 	@FXML
-	private TableColumn<Titulo, Date> columnHasta;
+	private TableColumn<Conocimiento, Date> columnHasta;
 
 	@FXML
-	private TableColumn<Titulo, String> columnDenominacion;
+	private TableColumn<Conocimiento, String> columnDenominacion;
 
 	@FXML
-	private TableColumn<Titulo, String> columnOrganizador;
+	private TableColumn<Conocimiento, String> columnEmpleador;
 
 	@FXML
 	private Button btnAgregar;
@@ -61,36 +61,36 @@ public class FormacionController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		formacion.addListener((o, ov, nv) -> onFormacionChanged(o, ov, nv));
+		experiencia.addListener((o, ov, nv) -> onExperienciaChanged(o, ov, nv));
 
-		columnDesde.setCellValueFactory(new PropertyValueFactory<Titulo, Date>("fechaDesde"));
-		columnHasta.setCellValueFactory(new PropertyValueFactory<Titulo, Date>("fechaHasta"));
-		columnDenominacion.setCellValueFactory(new PropertyValueFactory<Titulo, String>("denominacion"));
-		columnOrganizador.setCellValueFactory(new PropertyValueFactory<Titulo, String>("organizador"));
+		columnDesde.setCellValueFactory(new PropertyValueFactory<Conocimiento, Date>("fechaDesde"));
+		columnHasta.setCellValueFactory(new PropertyValueFactory<Conocimiento, Date>("fechaHasta"));
+		columnDenominacion.setCellValueFactory(new PropertyValueFactory<Conocimiento, String>("denominacion"));
+		columnEmpleador.setCellValueFactory(new PropertyValueFactory<Conocimiento, String>("empleador"));
 		columnDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
-		columnOrganizador.setCellFactory(TextFieldTableCell.forTableColumn());
+		columnEmpleador.setCellFactory(TextFieldTableCell.forTableColumn());
 
 	}
 
-	public FormacionController() throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FormacionView.fxml"));
+	public ExperienciaController() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ExperienciaView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
 
-	private void onFormacionChanged(ObservableValue<? extends Formacion> o, Formacion ov, Formacion nv) {
+	private void onExperienciaChanged(ObservableValue<? extends Experiencia> o, Experiencia ov, Experiencia nv) {
 
 		System.out.println("ov=" + ov + "/nv=" + nv);
 
 		if (ov != null) {
 
-			tableFormacion.itemsProperty().unbindBidirectional(ov.titulosProperty());
+			tableExperiencia.itemsProperty().unbindBidirectional(ov.conocimientosProperty());
 			// TODO desbindear el resto de propiedades
 
 		}
 
 		if (nv != null) {
-			tableFormacion.itemsProperty().bind(nv.titulosProperty());
+			tableExperiencia.itemsProperty().bind(nv.conocimientosProperty());
 			// TODO bindear el resto de propiedades
 
 		}
@@ -98,10 +98,10 @@ public class FormacionController implements Initializable {
 	}
 
 	@FXML
-	void agregarFormacion(ActionEvent event) {
-		Dialog<Titulo> dialog = new Dialog<>();
-		dialog.setTitle("Nueva titulo");
-		dialog.setHeaderText("Agregar una nueva titulo");
+	void agregarExperiencia(ActionEvent event) {
+		Dialog<Conocimiento> dialog = new Dialog<>();
+		dialog.setTitle("Nueva conocimiento");
+		dialog.setHeaderText("Agregar un nuevo conocimiento");
 
 		ButtonType loginButtonType = new ButtonType("Agregar", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -114,12 +114,12 @@ public class FormacionController implements Initializable {
 		DatePicker desde = new DatePicker();
 		DatePicker hasta = new DatePicker();
 		TextField denominacion = new TextField();
-		TextField organizador = new TextField();
+		TextField empleador = new TextField();
 
 		grid.add(new Label("Denominación: "), 0, 0);
 		grid.add(denominacion, 1, 0);
-		grid.add(new Label("Organizador"), 0, 1);
-		grid.add(organizador, 1, 1);
+		grid.add(new Label("Empleador"), 0, 1);
+		grid.add(empleador, 1, 1);
 		grid.add(new Label("Desde:"), 0, 2);
 		grid.add(desde, 1, 2);
 		grid.add(new Label("Hasta:"), 0, 3);
@@ -129,31 +129,31 @@ public class FormacionController implements Initializable {
 
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == loginButtonType) {
-				return new Titulo(denominacion.getText().toString(), organizador.getText().toString(), desde.getValue(),
-						hasta.getValue());
+				return new Conocimiento(denominacion.getText().toString(), empleador.getText().toString(),
+						desde.getValue(), hasta.getValue());
 			}
 			return null;
 		});
 
-		Optional<Titulo> result = dialog.showAndWait();
+		Optional<Conocimiento> result = dialog.showAndWait();
 
 		if (result.isPresent()) {
-			tableFormacion.getItems().add(result.get());
+			tableExperiencia.getItems().add(result.get());
 		}
 	}
 
 	@FXML
-	void eliminarTitulo(ActionEvent event) {
-		Titulo titulo = tableFormacion.getSelectionModel().getSelectedItem();
+	void eliminarConocimiento(ActionEvent event) {
+		Conocimiento conocimineto = tableExperiencia.getSelectionModel().getSelectedItem();
 
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
-		alert.setTitle("Eliminar Titulo");
-		alert.setContentText("¿Estas seguro de que quieres borrar este titulo? \n " + titulo);
+		alert.setTitle("Eliminar Conocimiento");
+		alert.setContentText("¿Estas seguro de que quieres borrar este conocimiento? \n " + conocimineto);
 		Optional<ButtonType> action = alert.showAndWait();
 
 		if (action.get() == ButtonType.OK) {
-			tableFormacion.getItems().remove(titulo);
+			tableExperiencia.getItems().remove(conocimineto);
 		}
 
 	}
@@ -162,16 +162,15 @@ public class FormacionController implements Initializable {
 		return view;
 	}
 
-	public final ObjectProperty<Formacion> formacionProperty() {
-		return this.formacion;
+	public final ObjectProperty<Experiencia> experienciaProperty() {
+		return this.experiencia;
 	}
 
-	public final Formacion getFormacion() {
-		return this.formacionProperty().get();
+	public final Experiencia getExperiencia() {
+		return this.experienciaProperty().get();
 	}
 
-	public final void setFormacion(final Formacion formacion) {
-		this.formacionProperty().set(formacion);
+	public final void setExperiencia(final Experiencia experiencia) {
+		this.experienciaProperty().set(experiencia);
 	}
-
 }

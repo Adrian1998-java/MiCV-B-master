@@ -11,6 +11,8 @@ public class CV {
 
 	private ObjectProperty<Personal> personal = new SimpleObjectProperty<Personal>(new Personal());
 	private ObjectProperty<Contacto> contacto = new SimpleObjectProperty<Contacto>(new Contacto());
+	private ObjectProperty<Formacion> formacion = new SimpleObjectProperty<Formacion>(new Formacion());
+	private ObjectProperty<Experiencia> experiencia = new SimpleObjectProperty<Experiencia>(new Experiencia());
 
 	public final ObjectProperty<Personal> personalProperty() {
 		return this.personal;
@@ -34,6 +36,30 @@ public class CV {
 
 	public final void setContacto(final Contacto contacto) {
 		this.contactoProperty().set(contacto);
+	}
+	
+	public final ObjectProperty<Formacion> formacionProperty() {
+		return this.formacion;
+	}
+
+	public final Formacion getFormacion() {
+		return this.formacionProperty().get();
+	}
+
+	public final void setFormacion(final Formacion formacion) {
+		this.formacionProperty().set(formacion);
+	}
+	
+	public final ObjectProperty<Experiencia> experienciaProperty() {
+		return this.experiencia;
+	}
+
+	public final Experiencia getexperiencia() {
+		return this.experienciaProperty().get();
+	}
+
+	public final void setExperiencia(final Experiencia experiencia) {
+		this.experienciaProperty().set(experiencia);
 	}
 
 	public static void main(String[] args) {

@@ -53,11 +53,11 @@
                <children>
                   <TableView fx:id="tableEmail" editable="true" prefHeight="100.0" prefWidth="242.0" GridPane.rowSpan="2">
                      <columns>
-                        <TableColumn fx:id="collnEmail" prefWidth="262.0" text="E-mail" />
+                        <TableColumn fx:id="columnEmail" prefWidth="262.0" text="E-mail" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnAgregarEmail" mnemonicParsing="false" text="Añadir" GridPane.columnIndex="1" />
-                  <Button fx:id="btnEliminarEmail" mnemonicParsing="false" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="btnAgregarEmail" mnemonicParsing="false" onAction="#agregarEmail" text="Añadir" GridPane.columnIndex="1" />
+                  <Button fx:id="btnEliminarEmail" mnemonicParsing="false" onAction="#eliminarEmail" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -82,8 +82,8 @@
                         <TableColumn fx:id="columnUrl" prefWidth="261.0" text="URL" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnAgregarUrl" mnemonicParsing="false" text="Añadir" GridPane.columnIndex="1" />
-                  <Button fx:id="btnEliminarUrl" mnemonicParsing="false" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="btnAgregarUrl" mnemonicParsing="false" onAction="#agregarUrl" text="Añadir" GridPane.columnIndex="1" />
+                  <Button fx:id="btnEliminarUrl" mnemonicParsing="false" onAction="#eliminarUrl" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />

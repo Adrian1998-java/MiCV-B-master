@@ -3,15 +3,11 @@ package micv;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
-import org.apache.commons.io.FileUtils;
-import org.hildan.fxgson.FxGson;
-
-import com.google.gson.Gson;
-
 import controller.ContactoController;
+import controller.ExperienciaController;
+import controller.FormacionController;
 import controller.PersonalController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,6 +29,8 @@ public class MainController implements Initializable {
 	
 	private PersonalController personalController = new PersonalController();
 	private ContactoController contactoController = new ContactoController();
+	private FormacionController formacionController = new FormacionController();
+	private ExperienciaController experienciaController = new ExperienciaController();
 	
 	// model
 	
@@ -73,6 +71,8 @@ public class MainController implements Initializable {
 
 		personalTab.setContent(personalController.getView());
 		contactoTab.setContent(contactoController.getView());
+		formacionTab.setContent(formacionController.getView());
+		experienciaTab.setContent(experienciaController.getView());
 		
 		cv.addListener((o, ov, nv) -> onCVChanged(o, ov, nv));
 		
@@ -86,6 +86,8 @@ public class MainController implements Initializable {
     		
     		personalController.personalProperty().unbind(); // desbindeo personalProperty del CV anterior
     		contactoController.contactoProperty().unbind();
+    		formacionController.formacionProperty().unbind();
+    		experienciaController.experienciaProperty().unbind();
     		// desbindear resto de controllers
     		
     	}
@@ -95,6 +97,8 @@ public class MainController implements Initializable {
     		personalController.personalProperty().bind(nv.personalProperty()); // bindeo personalProperty del nuevo CV
     		// bindear resto de controllers
     		contactoController.contactoProperty().bind(nv.contactoProperty());
+    		formacionController.formacionProperty().bind(nv.formacionProperty());
+    		experienciaController.experienciaProperty().bind(nv.experienciaProperty());
     	}
     	
 	}
