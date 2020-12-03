@@ -54,7 +54,7 @@ public class CV {
 		return this.experiencia;
 	}
 
-	public final Experiencia getexperiencia() {
+	public final Experiencia getExperiencia() {
 		return this.experienciaProperty().get();
 	}
 
