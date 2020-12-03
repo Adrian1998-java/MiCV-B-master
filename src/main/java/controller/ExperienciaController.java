@@ -2,13 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
@@ -23,34 +26,31 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import model.Conocimiento;
 import model.Experiencia;
 
 public class ExperienciaController implements Initializable {
 
-	private ObjectProperty<Experiencia> experiencia = new SimpleObjectProperty<>();
+	private ListProperty<Experiencia> experiencia = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 	@FXML
 	private GridPane view;
 
 	@FXML
-	private TableView<Conocimiento> tableExperiencia;
+	private TableView<Experiencia> tableExperiencia;
 
 	@FXML
-	private TableColumn<Conocimiento, Date> columnDesde;
+	private TableColumn<Experiencia, LocalDate> columnDesde;
 
 	@FXML
-	private TableColumn<Conocimiento, Date> columnHasta;
+	private TableColumn<Experiencia, LocalDate> columnHasta;
 
 	@FXML
-	private TableColumn<Conocimiento, String> columnDenominacion;
+	private TableColumn<Experiencia, String> columnDenominacion;
 
 	@FXML
-	private TableColumn<Conocimiento, String> columnEmpleador;
+	private TableColumn<Experiencia, String> columnEmpleador;
 
 	@FXML
 	private Button btnAgregar;
@@ -63,10 +63,11 @@ public class ExperienciaController implements Initializable {
 
 		experiencia.addListener((o, ov, nv) -> onExperienciaChanged(o, ov, nv));
 
-		columnDesde.setCellValueFactory(new PropertyValueFactory<Conocimiento, Date>("fechaDesde"));
-		columnHasta.setCellValueFactory(new PropertyValueFactory<Conocimiento, Date>("fechaHasta"));
-		columnDenominacion.setCellValueFactory(new PropertyValueFactory<Conocimiento, String>("denominacion"));
-		columnEmpleador.setCellValueFactory(new PropertyValueFactory<Conocimiento, String>("empleador"));
+		columnDesde.setCellValueFactory(v -> v.getValue().fechaDesdeProperty());
+		columnHasta.setCellValueFactory(v -> v.getValue().fechaHastaProperty());
+		columnDenominacion.setCellValueFactory(v -> v.getValue().denominacionProperty());
+		columnEmpleador.setCellValueFactory(v -> v.getValue().empleadorProperty());
+
 		columnDenominacion.setCellFactory(TextFieldTableCell.forTableColumn());
 		columnEmpleador.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -78,19 +79,20 @@ public class ExperienciaController implements Initializable {
 		loader.load();
 	}
 
-	private void onExperienciaChanged(ObservableValue<? extends Experiencia> o, Experiencia ov, Experiencia nv) {
+	private void onExperienciaChanged(ObservableValue<? extends ObservableList<Experiencia>> o,
+			ObservableList<Experiencia> ov, ObservableList<Experiencia> nv) {
 
 		System.out.println("ov=" + ov + "/nv=" + nv);
 
 		if (ov != null) {
 
-			tableExperiencia.itemsProperty().unbindBidirectional(ov.conocimientosProperty());
+			tableExperiencia.setItems(null);
 			// TODO desbindear el resto de propiedades
 
 		}
 
 		if (nv != null) {
-			tableExperiencia.itemsProperty().bind(nv.conocimientosProperty());
+			tableExperiencia.setItems(nv);
 			// TODO bindear el resto de propiedades
 
 		}
@@ -99,7 +101,7 @@ public class ExperienciaController implements Initializable {
 
 	@FXML
 	void agregarExperiencia(ActionEvent event) {
-		Dialog<Conocimiento> dialog = new Dialog<>();
+		Dialog<Experiencia> dialog = new Dialog<>();
 		dialog.setTitle("Nueva conocimiento");
 		dialog.setHeaderText("Agregar un nuevo conocimiento");
 
@@ -129,13 +131,12 @@ public class ExperienciaController implements Initializable {
 
 		dialog.setResultConverter(dialogButton -> {
 			if (dialogButton == loginButtonType) {
-				return new Conocimiento(denominacion.getText().toString(), empleador.getText().toString(),
-						desde.getValue(), hasta.getValue());
+				return new Experiencia(denominacion.getText(), empleador.getText(), desde.getValue(), hasta.getValue());
 			}
 			return null;
 		});
 
-		Optional<Conocimiento> result = dialog.showAndWait();
+		Optional<Experiencia> result = dialog.showAndWait();
 
 		if (result.isPresent()) {
 			tableExperiencia.getItems().add(result.get());
@@ -144,7 +145,7 @@ public class ExperienciaController implements Initializable {
 
 	@FXML
 	void eliminarConocimiento(ActionEvent event) {
-		Conocimiento conocimineto = tableExperiencia.getSelectionModel().getSelectedItem();
+		Experiencia conocimineto = tableExperiencia.getSelectionModel().getSelectedItem();
 
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
@@ -162,15 +163,16 @@ public class ExperienciaController implements Initializable {
 		return view;
 	}
 
-	public final ObjectProperty<Experiencia> experienciaProperty() {
+	public final ListProperty<Experiencia> experienciaProperty() {
 		return this.experiencia;
 	}
 
-	public final Experiencia getExperiencia() {
+	public final ObservableList<Experiencia> getExperiencia() {
 		return this.experienciaProperty().get();
 	}
 
-	public final void setExperiencia(final Experiencia experiencia) {
+	public final void setExperiencia(final ObservableList<Experiencia> experiencia) {
 		this.experienciaProperty().set(experiencia);
 	}
+
 }
