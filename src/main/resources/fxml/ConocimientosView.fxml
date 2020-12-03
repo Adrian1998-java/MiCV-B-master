@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<GridPane prefHeight="455.0" prefWidth="649.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<GridPane fx:id="view" prefHeight="455.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <rowConstraints>
       <RowConstraints maxHeight="446.0" minHeight="10.0" prefHeight="28.0" vgrow="ALWAYS" />
       <RowConstraints maxHeight="446.0" minHeight="8.0" prefHeight="29.0" vgrow="ALWAYS" />
@@ -20,15 +19,15 @@
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="163.0" minWidth="10.0" prefWidth="154.0" />
    </columnConstraints>
    <children>
-      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
+      <TableView fx:id="tableConocimiento" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowSpan="3">
         <columns>
-          <TableColumn prefWidth="116.0" text="Denominación" />
-          <TableColumn prefWidth="93.0" text="Nivel" />
+          <TableColumn fx:id="columnDenominacion" prefWidth="116.0" text="Denominación" />
+          <TableColumn fx:id="columnNivel" prefWidth="93.0" text="Nivel" />
         </columns>
       </TableView>
-      <Button mnemonicParsing="false" prefWidth="141.0" text="Añadir conocimiento" GridPane.columnIndex="1" GridPane.valignment="TOP" />
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="142.0" text="Añadir idioma" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+      <Button fx:id="btnConocimiento" mnemonicParsing="false" onAction="#agregarConocimiento" prefWidth="141.0" text="Añadir conocimiento" GridPane.columnIndex="1" GridPane.valignment="TOP" />
+      <Button fx:id="btnIdioma" mnemonicParsing="false" onAction="#agregarIdioma" prefHeight="25.0" prefWidth="142.0" text="Añadir idioma" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarConocimiento" prefHeight="25.0" prefWidth="141.0" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

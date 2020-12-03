@@ -8,76 +8,42 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Conocimiento {
-	private ObjectProperty<LocalDate> fechaDesde = new SimpleObjectProperty<LocalDate>();
-	private ObjectProperty<LocalDate> fechaHasta = new SimpleObjectProperty<LocalDate>();
-	private StringProperty denominacion = new SimpleStringProperty();
-	private StringProperty empleador = new SimpleStringProperty();
+
+	StringProperty denominacion = new SimpleStringProperty();
+	StringProperty nivel = new SimpleStringProperty();
 
 	public Conocimiento() {
 
 	}
 
-	public Conocimiento(String denominacion, String empleador, LocalDate desde, LocalDate hasta) {
+	public Conocimiento(String denominacion, String nivel) {
 		super();
 		this.denominacion.set(denominacion);
-		this.empleador.set(empleador);
-		this.fechaDesde.set(desde);
-		this.fechaHasta.set(hasta);
-	}
-
-	public ObjectProperty<LocalDate> fechaDesdeProperty() {
-		return fechaDesde;
-	}
-
-	public void setFechaDesde(ObjectProperty<LocalDate> fechaDesde) {
-		this.fechaDesde = fechaDesde;
-	}
-
-	public LocalDate getFechaDesde() {
-		return this.fechaDesde.get();
-	}
-
-	public ObjectProperty<LocalDate> fechaHastaProperty() {
-		return fechaHasta;
-	}
-
-	public void setFechaHasta(ObjectProperty<LocalDate> fechaHasta) {
-		this.fechaHasta = fechaHasta;
-	}
-
-	public LocalDate getFechaHasta() {
-		return this.fechaHasta.get();
+		this.nivel.set(nivel);
 	}
 
 	public StringProperty denominacionProperty() {
 		return denominacion;
 	}
 
-	public void setDenominacion(StringProperty denominacion) {
-		this.denominacion = denominacion;
-	}
-
 	public String getDenominacion() {
 		return this.denominacion.get();
 	}
 
-	public StringProperty empleadorProperty() {
-		return empleador;
+	public void setDenominacion(String denominacion) {
+		this.denominacion.set(denominacion);
 	}
 
-	public void setEmpleador(StringProperty organizador) {
-		this.empleador = organizador;
+	public StringProperty nivelProperty() {
+		return nivel;
 	}
 
-	public String getEmpleador() {
-		return this.empleador.get();
+	public String getNivel() {
+		return this.nivel.get();
 	}
 
-	@Override
-	public String toString() {
-		return "Conocimiento [fechaDesde=" + fechaDesde + ", fechaHasta=" + fechaHasta + ", denominacion="
-				+ denominacion + ", empleador=" + empleador + "]";
+	public void setNivel(String nivel) {
+		this.nivel.set(nivel);
 	}
-	
-	
+
 }
